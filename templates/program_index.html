@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}The Global Speaker — Session Blueprints{% endblock %}
+
+{% block content %}
+<h1 class="page-title">{{ syllabus.title }}</h1>
+<p class="page-subtitle">{{ syllabus.tagline }}</p>
+<p>{{ syllabus.description }}</p>
+
+<div class="level-grid">
+  {% for level in levels %}
+  <article class="level-card">
+    <h2><a href="{{ level.index_href }}">Level {{ level.level }}: {{ level.title }}</a></h2>
+    <p>{{ level.focus }}</p>
+    <p><strong>{{ level.generated_count }}</strong> of {{ level.total_count }} sessions published</p>
+    <a href="{{ level.index_href }}">Browse sessions →</a>
+  </article>
+  {% endfor %}
+</div>
+
+<h2 class="page-title" style="margin-top: 2.5rem; font-size: 1.35rem;">All Sessions</h2>
+
+<table class="session-table">
+  <thead>
+    <tr>
+      <th>Global #</th>
+      <th>Level</th>
+      <th>Chapter</th>
+      <th>Drill</th>
+      <th>Blueprint</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entry in all_sessions %}
+    <tr>
+      <td>{{ entry.global_chapter_number }}</td>
+      <td>{{ entry.level }}</td>
+      <td>{{ entry.title }}</td>
+      <td>{{ entry.drill_name }}</td>
+      <td>
+        {% if entry.href %}
+        <a href="{{ entry.href }}">View</a>
+        {% else %}
+        <span class="pending">Pending</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

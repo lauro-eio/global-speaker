@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}The Global Speaker{% endblock %}</title>
+  <link rel="stylesheet" href="{{ asset_prefix }}assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="{{ home_href }}" class="site-header__brand">The Global Speaker</a>
+    </div>
+  </header>
+
+  {% if breadcrumbs %}
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      {% for crumb in breadcrumbs %}
+      <li>
+        {% if crumb.href and not loop.last %}
+        <a href="{{ crumb.href }}">{{ crumb.label }}</a>
+        {% else %}
+        {{ crumb.label }}
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </nav>
+  {% endif %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+  The Global Speaker — Master the Stage. Command the Screen.
+  </footer>
+</body>
+</html>

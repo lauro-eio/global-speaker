@@ -1,0 +1,324 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-bg: #f7f6f3;
+  --color-surface: #ffffff;
+  --color-text: #1a1a1a;
+  --color-muted: #5c5c5c;
+  --color-border: #d8d4cc;
+  --color-accent: #1e3a5f;
+  --color-accent-light: #e8eef4;
+  --color-drill: #2d5a3d;
+  --color-drill-bg: #edf4ef;
+  --color-metrics: #5a3d1e;
+  --color-metrics-bg: #f4f0eb;
+  --color-coaching: #3d2d5a;
+  --color-coaching-bg: #f0edf4;
+  --font-sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --max-width: 52rem;
+  --radius: 6px;
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.site-header {
+  background: var(--color-accent);
+  color: #fff;
+  padding: 1rem 1.5rem;
+}
+
+.site-header a {
+  color: #fff;
+}
+
+.site-header__inner {
+  max-width: calc(var(--max-width) + 4rem);
+  margin: 0 auto;
+}
+
+.site-header__brand {
+  font-weight: 600;
+  font-size: 1.125rem;
+  letter-spacing: 0.02em;
+}
+
+.breadcrumb {
+  margin: 0;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: calc(var(--max-width) + 4rem);
+}
+
+.breadcrumb li + li::before {
+  content: "›";
+  margin-right: 0.5rem;
+  color: var(--color-border);
+}
+
+.breadcrumb a {
+  color: var(--color-muted);
+}
+
+main {
+  max-width: calc(var(--max-width) + 4rem);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+}
+
+.page-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.page-subtitle {
+  margin: 0 0 1.5rem;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius);
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+}
+
+.badge--pending {
+  background: #eee;
+  color: var(--color-muted);
+}
+
+.session-meta {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding: 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.session-meta dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 1rem;
+  margin: 0;
+}
+
+.session-meta dt {
+  font-weight: 600;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+.session-meta dd {
+  margin: 0;
+}
+
+.blueprint-section {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.blueprint-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.blueprint-section h2 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.section-guidance {
+  margin: 0 0 1rem;
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+.callout {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--color-drill);
+  background: var(--color-drill-bg);
+  font-weight: 500;
+  color: var(--color-drill);
+}
+
+.field-list {
+  margin: 0;
+}
+
+.field-list .field {
+  margin-bottom: 1.25rem;
+}
+
+.field-list .field:last-child {
+  margin-bottom: 0;
+}
+
+.field-label {
+  margin: 0 0 0.35rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.field-value {
+  margin: 0;
+}
+
+.field-value ul {
+  margin: 0.25rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.field-value li {
+  margin-bottom: 0.35rem;
+}
+
+.blueprint-section--drill .callout {
+  display: block;
+}
+
+.blueprint-section--metrics ol {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.blueprint-section--metrics li {
+  margin-bottom: 0.75rem;
+}
+
+.blueprint-section--metrics li:last-child {
+  margin-bottom: 0;
+}
+
+.blueprint-section--coaching {
+  background: var(--color-coaching-bg);
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding: 1.5rem 1rem;
+  border-radius: var(--radius);
+  border-bottom: none;
+}
+
+.level-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .level-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.level-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.level-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.level-card p {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.session-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.session-table th,
+.session-table td {
+  padding: 0.65rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.session-table th {
+  background: var(--color-accent-light);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-accent);
+}
+
+.session-table tr:last-child td {
+  border-bottom: none;
+}
+
+.session-table .pending {
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.site-footer {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  border-top: 1px solid var(--color-border);
+}

@@ -1,0 +1,176 @@
+{
+  "id": "strict-master-output-template",
+  "title": "Strict Master Output Template",
+  "header": {
+    "format": "[Chapter Title] | Level [1, 2, or 3]",
+    "fields": [
+      {
+        "key": "chapter_title",
+        "placeholder": "[Insert Chapter Title]"
+      },
+      {
+        "key": "level",
+        "placeholder": "[Insert 1, 2, or 3]",
+        "allowed_values": [1, 2, 3]
+      },
+      {
+        "key": "focus",
+        "placeholder": "[Insert Negotiation / Networking / Both]",
+        "allowed_values": ["Negotiation", "Networking", "Both"]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "I",
+      "title": "The \"Work-Ready\" Objective",
+      "guidance": "In 1 sentence: What specific, measurable workplace outcome will the student achieve by the end of this session?",
+      "fields": []
+    },
+    {
+      "id": "II",
+      "title": "The Discourse Strategy (The Verbal Formula)",
+      "fields": [
+        {
+          "key": "structural_blueprint",
+          "label": "The Structural Blueprint",
+          "placeholder": "The explicit step-by-step messaging framework, linguistic layout, or structural model the student must follow when speaking."
+        },
+        {
+          "key": "key_linguistic_triggers",
+          "label": "Key Linguistic Triggers",
+          "placeholder": "Provide 2 to 3 exact phrases or sentence-starters that anchor this discourse strategy in business environments."
+        }
+      ]
+    },
+    {
+      "id": "III",
+      "title": "The Bimodal Skill Set",
+      "fields": [
+        {
+          "key": "on_the_stage_physical",
+          "label": "On the Stage (Physical)",
+          "placeholder": "Define the exact physical mechanic—such as grounding, spatial movement, or open-palm gestures—that must punctuate and support the verbal framework in person."
+        },
+        {
+          "key": "in_the_frame_virtual",
+          "label": "In the Frame (Virtual)",
+          "placeholder": "Define the exact digital mechanic—such as specific lens-contact calibration, microphone vocal placement, or upper-chest webcam framing—that must support the verbal framework online."
+        }
+      ]
+    },
+    {
+      "id": "IV",
+      "title": "The \"Work-Ready\" Drill",
+      "time_allocation": "80% of Session Duration",
+      "fields": [
+        {
+          "key": "drill_name",
+          "label": "Drill Name",
+          "placeholder": "[Insert Drill Name]"
+        },
+        {
+          "key": "scenario",
+          "label": "The Scenario",
+          "placeholder": "Contextualize the drill inside a high-stakes business setting, such as an executive cross-border panel, a stakeholder negotiation, or a corporate town hall."
+        },
+        {
+          "key": "verbal_execution",
+          "label": "The Verbal Execution",
+          "placeholder": "Step-by-step procedural guidelines on how peers must execute and chain the Verbal Formula during the drill."
+        },
+        {
+          "key": "physical_instruction_offline",
+          "label": "The Physical Instruction (Offline)",
+          "placeholder": "Granular, step-by-step instructions on how to physically move, stand, and anchor the delivery inside a physical boardroom or training space."
+        },
+        {
+          "key": "virtual_instruction_online",
+          "label": "The Virtual Instruction (Online)",
+          "placeholder": "Granular, step-by-step instructions on how to look, frame oneself, and manage the technical interface when delivering the drill via webcam."
+        }
+      ]
+    },
+    {
+      "id": "V",
+      "title": "Success Metrics (The Global Speaker Bar)",
+      "guidance": "To pass, the student must flawlessly demonstrate all three tracking pillars simultaneously.",
+      "fields": [
+        {
+          "key": "technical_accuracy",
+          "label": "Technical Accuracy (Discourse Gate)",
+          "placeholder": "Explicit checklist item confirming compliance with the structural verbal formula, e.g., \"Must state the business impact and ROI prior to citing any data points.\""
+        },
+        {
+          "key": "bimodal_fluency",
+          "label": "Bimodal Fluency (Medium Mastery)",
+          "placeholder": "Explicit checklist item confirming physical or digital environment control, e.g., \"Maintained 100% continuous eye contact with the physical audience during the pivot, or did not drop gaze from the camera lens.\""
+        },
+        {
+          "key": "executive_presence",
+          "label": "Executive Presence (Behavioral Polish)",
+          "placeholder": "Explicit checklist item defining the total absence of amateur tells, e.g., \"Zero vocal filler words, zero physical swaying or micro-expressions of hesitation, and steady breathing pacing.\""
+        }
+      ]
+    },
+    {
+      "id": "VI",
+      "title": "Complexity Shift (The \"Pressure\" Layer)",
+      "guidance": "When a group or individual passes the baseline drill early, coaches must instantly apply one of these stress-testing constraints.",
+      "fields": [
+        {
+          "key": "time_crunch",
+          "label": "Time Crunch",
+          "placeholder": "Explicit instruction detailing how to cut the allowable delivery time in half, forcing immediate compression of the verbal formula without sacrificing structural milestones."
+        },
+        {
+          "key": "adversarial",
+          "label": "Adversarial",
+          "placeholder": "Explicit instruction detailing a disruptive participant behavior, unexpected stakeholder objection, or live interruption that forces the student to maintain physical composure while deploying the discourse strategy to regain control."
+        }
+      ]
+    },
+    {
+      "id": "VII",
+      "title": "Coaching Notes & Jargon Check",
+      "fields": [
+        {
+          "key": "executive_verbal_pivot",
+          "label": "The Executive Verbal Pivot",
+          "placeholder": "Provide an exact, highly professional script/phrase to actively use."
+        },
+        {
+          "key": "verbal_amateur_tell",
+          "label": "The Verbal Amateur Tell",
+          "placeholder": "Provide the exact phrase, speech-club cliché, or corporate-jargon crutch to explicitly ban."
+        },
+        {
+          "key": "common_pitfall",
+          "label": "Common Pitfall",
+          "placeholder": "Highlight the primary behavioral or linguistic mistake students make during this specific drill and how a coach or peer should instantly correct it."
+        }
+      ]
+    },
+    {
+      "id": "VIII",
+      "title": "Executive Summary for Students",
+      "fields": [
+        {
+          "key": "takeaway_verbal",
+          "label": "Takeaway 1 (Verbal)",
+          "placeholder": "The immediate Monday-morning linguistic rule or script modification to implement."
+        },
+        {
+          "key": "takeaway_non_verbal",
+          "label": "Takeaway 2 (Non-Verbal)",
+          "placeholder": "The primary physical adjustment or digital framing configuration required to preserve authority."
+        },
+        {
+          "key": "takeaway_golden_rule",
+          "label": "Takeaway 3 (The Golden Rule)",
+          "placeholder": "A definitive, single-sentence axiom that defines the operational philosophy of this entire chapter."
+        }
+      ]
+    }
+  ]
+}

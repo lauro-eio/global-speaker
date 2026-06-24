@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}{{ header.chapter_title }} | Level {{ header.level }} — The Global Speaker{% endblock %}
+
+{% block content %}
+<header class="session-header">
+  <h1 class="page-title">{{ header.chapter_title }} | Level {{ header.level }}</h1>
+  <p class="page-subtitle">
+    <span class="badge">Focus: {{ header.focus }}</span>
+  </p>
+</header>
+
+<div class="session-meta">
+  <dl>
+    <dt>Global chapter</dt>
+    <dd>#{{ session.global_chapter_number }}</dd>
+    <dt>Level</dt>
+    <dd>{{ session.level_title }}</dd>
+    <dt>Key ability</dt>
+    <dd>{{ session.key_ability }}</dd>
+    <dt>Work-ready drill</dt>
+    <dd>{{ session.work_ready_drill.name }}</dd>
+    <dt>Generated</dt>
+    <dd>{{ generated_at_display }}</dd>
+  </dl>
+</div>
+
+{% for section in rendered_sections %}
+<section class="blueprint-section blueprint-section--{{ section.css_class }}" id="section-{{ section.id }}">
+  <h2>{{ section.id }}. {{ section.title }}</h2>
+
+  {% if section.guidance %}
+  <p class="section-guidance">{{ section.guidance }}</p>
+  {% endif %}
+
+  {% if section.time_allocation %}
+  <p class="callout">Time Allocation: {{ section.time_allocation }}</p>
+  {% endif %}
+
+  {% if section.checklist %}
+  <ol>
+    {% for item in section.checklist %}
+    <li><strong>{{ item.label }}:</strong> {{ item.value }}</li>
+    {% endfor %}
+  </ol>
+  {% elif section.fields %}
+  <div class="field-list">
+    {% for field in section.fields %}
+    <div class="field">
+      <p class="field-label">{{ field.label }}</p>
+      <div class="field-value">
+        {% if field.is_list %}
+        <ul>
+          {% for phrase in field.value %}
+          <li>{{ phrase }}</li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p>{{ field.value }}</p>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+{% endfor %}
+{% endblock %}

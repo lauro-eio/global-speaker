@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Level {{ level.level }}: {{ level.title }} — The Global Speaker{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Level {{ level.level }}: {{ level.title }}</h1>
+<p class="page-subtitle">{{ level.focus }}</p>
+
+<table class="session-table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Chapter</th>
+      <th>Key Ability</th>
+      <th>Drill</th>
+      <th>Blueprint</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entry in sessions %}
+    <tr>
+      <td>{{ entry.chapter_number }}</td>
+      <td>{{ entry.title }}</td>
+      <td>{{ entry.key_ability }}</td>
+      <td>{{ entry.drill_name }}</td>
+      <td>
+        {% if entry.href %}
+        <a href="{{ entry.href }}">View blueprint</a>
+        {% else %}
+        <span class="pending">Not yet generated</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,318 @@
+{
+  "id": "global-speaker-syllabus",
+  "title": "The Global Speaker",
+  "tagline": "Master the Stage. Command the Screen.",
+  "description": "This three-tier program is the definitive training suite for professionals operating in a hybrid, international landscape. We move beyond \"public speaking\" to develop Bimodal Fluency: the ability to transition seamlessly between the physical boardroom and the virtual frame.",
+  "total_chapters": 27,
+  "levels": [
+    {
+      "level": 1,
+      "title": "Foundations of Presence",
+      "focus": "Transitioning from functional to credible. (Breaking the ice, building trust, and basic value-propositions.)",
+      "chapters": [
+        {
+          "chapter_number": 1,
+          "title": "The Professional Intro",
+          "key_ability": "Instant Credibility",
+          "work_ready_drill": {
+            "name": "The 60-Second Hook",
+            "description": "Mastering the \"Ice Breaker\" for interviews and networking."
+          },
+          "global_chapter_number": 1
+        },
+        {
+          "chapter_number": 2,
+          "title": "Structure for Clarity",
+          "key_ability": "Logical Flow",
+          "work_ready_drill": {
+            "name": "The Rule of Three",
+            "description": "Organizing complex updates so they are \"skim-listenable.\""
+          },
+          "global_chapter_number": 2
+        },
+        {
+          "chapter_number": 3,
+          "title": "Executive Brevity",
+          "key_ability": "Time Management",
+          "work_ready_drill": {
+            "name": "The BLUF Update",
+            "description": "Delivering the Bottom Line Up Front under strict time limits."
+          },
+          "global_chapter_number": 3
+        },
+        {
+          "chapter_number": 4,
+          "title": "Strategic Presence",
+          "key_ability": "Vocal Authority",
+          "work_ready_drill": {
+            "name": "The Mic/Room Reset",
+            "description": "Adjusting tone for USB mics vs. large conference halls."
+          },
+          "global_chapter_number": 4
+        },
+        {
+          "chapter_number": 5,
+          "title": "Body Language of Trust",
+          "key_ability": "Non-Verbal Alignment",
+          "work_ready_drill": {
+            "name": "The Frame-Box Check",
+            "description": "Scaling gestures to fit the webcam vs. the stage."
+          },
+          "global_chapter_number": 5
+        },
+        {
+          "chapter_number": 6,
+          "title": "Evidence & Research",
+          "key_ability": "Data Integrity",
+          "work_ready_drill": {
+            "name": "The Data Spotlight",
+            "description": "Translating one complex chart into a clear, spoken insight."
+          },
+          "global_chapter_number": 6
+        },
+        {
+          "chapter_number": 7,
+          "title": "Screen & Deck Design",
+          "key_ability": "Visual Synergy",
+          "work_ready_drill": {
+            "name": "The Dual-Focus Slide",
+            "description": "Navigating a deck while maintaining audience engagement."
+          },
+          "global_chapter_number": 7
+        },
+        {
+          "chapter_number": 8,
+          "title": "Influential Persuasion",
+          "key_ability": "Stakeholder Buy-in",
+          "work_ready_drill": {
+            "name": "The Soft Sell",
+            "description": "Moving a peer from \"No\" to \"Yes\" using logical triggers."
+          },
+          "global_chapter_number": 8
+        },
+        {
+          "chapter_number": 9,
+          "title": "The Inspiring Leader",
+          "key_ability": "Vision Casting",
+          "work_ready_drill": {
+            "name": "The Team Town Hall",
+            "description": "Delivering a 3-minute \"State of the Project\" address."
+          },
+          "global_chapter_number": 9
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Strategic Influence",
+      "focus": "Commanding high-stakes, unpredictable environments. (Advanced deal-making, handling \"tough\" negotiators, and storytelling for ROI.)",
+      "chapters": [
+        {
+          "chapter_number": 1,
+          "title": "Impromptu Mastery",
+          "key_ability": "Thinking on your Feet",
+          "work_ready_drill": {
+            "name": "The Rapid Q&A",
+            "description": "Handling \"cold calls\" and unexpected executive questions."
+          },
+          "global_chapter_number": 10
+        },
+        {
+          "chapter_number": 2,
+          "title": "Executive Presence",
+          "key_ability": "Gravitas",
+          "work_ready_drill": {
+            "name": "The Power Play",
+            "description": "Using silence and posture to command a room's attention."
+          },
+          "global_chapter_number": 11
+        },
+        {
+          "chapter_number": 3,
+          "title": "Storytelling with Data",
+          "key_ability": "Narrative Impact",
+          "work_ready_drill": {
+            "name": "The ROI Story",
+            "description": "Turning a quarterly spreadsheet into a compelling success tale."
+          },
+          "global_chapter_number": 12
+        },
+        {
+          "chapter_number": 4,
+          "title": "Handling Hostility",
+          "key_ability": "Conflict De-escalation",
+          "work_ready_drill": {
+            "name": "The Bridge Technique",
+            "description": "Managing \"sticky\" participants without losing face."
+          },
+          "global_chapter_number": 13
+        },
+        {
+          "chapter_number": 5,
+          "title": "Advanced Persuasion",
+          "key_ability": "Psychological Sales",
+          "work_ready_drill": {
+            "name": "The Scarcity Pitch",
+            "description": "Leveraging social proof to close a high-value deal."
+          },
+          "global_chapter_number": 14
+        },
+        {
+          "chapter_number": 6,
+          "title": "The Art of the Interview",
+          "key_ability": "Self-Positioning",
+          "work_ready_drill": {
+            "name": "The Promotion Panel",
+            "description": "Articulating your \"Global Value\" to a hiring committee."
+          },
+          "global_chapter_number": 15
+        },
+        {
+          "chapter_number": 7,
+          "title": "Facilitation & Coaching",
+          "key_ability": "Group Dynamics",
+          "work_ready_drill": {
+            "name": "The Moderator's Guide",
+            "description": "Managing dominant vs. quiet voices in a meeting."
+          },
+          "global_chapter_number": 16
+        },
+        {
+          "chapter_number": 8,
+          "title": "Digital Diplomacy",
+          "key_ability": "Personal Branding",
+          "work_ready_drill": {
+            "name": "The LinkedIn Video",
+            "description": "Scripting and filming a professional 90-second update."
+          },
+          "global_chapter_number": 17
+        },
+        {
+          "chapter_number": 9,
+          "title": "The Keynote Blueprint",
+          "key_ability": "Signature Content",
+          "work_ready_drill": {
+            "name": "The 20-Minute Master",
+            "description": "Building a repeatable talk for industry conferences."
+          },
+          "global_chapter_number": 18
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "title": "The Executive Voice",
+      "focus": "Global thought leadership and systemic impact. (Multi-party summits, crisis mediation, and high-stakes boardroom negotiations.)",
+      "chapters": [
+        {
+          "chapter_number": 1,
+          "title": "Crisis Communication",
+          "key_ability": "Reputation Shielding",
+          "work_ready_drill": {
+            "name": "The Press Statement",
+            "description": "Delivering clear, calm info during a company failure."
+          },
+          "global_chapter_number": 19
+        },
+        {
+          "chapter_number": 2,
+          "title": "Speechwriting for Others",
+          "key_ability": "Ghostwriting",
+          "work_ready_drill": {
+            "name": "The Briefing Note",
+            "description": "Designing a speech for a CEO or Senior VP."
+          },
+          "global_chapter_number": 20
+        },
+        {
+          "chapter_number": 3,
+          "title": "Panel Moderation",
+          "key_ability": "Socratic Steering",
+          "work_ready_drill": {
+            "name": "The Global Summit",
+            "description": "Navigating a 4-person panel with diverse viewpoints."
+          },
+          "global_chapter_number": 21
+        },
+        {
+          "chapter_number": 4,
+          "title": "Mastering Media",
+          "key_ability": "Press Proficiency",
+          "work_ready_drill": {
+            "name": "The Podcast Sprint",
+            "description": "Mastering the 15-minute high-energy audio interview."
+          },
+          "global_chapter_number": 22
+        },
+        {
+          "chapter_number": 5,
+          "title": "Cultural Fluency",
+          "key_ability": "Global Adaptation",
+          "work_ready_drill": {
+            "name": "The Cross-Border Pitch",
+            "description": "Adjusting humor and idioms for a global audience."
+          },
+          "global_chapter_number": 23
+        },
+        {
+          "chapter_number": 6,
+          "title": "The Boardroom Deck",
+          "key_ability": "Strategic Visuals",
+          "work_ready_drill": {
+            "name": "The Investor Pitch",
+            "description": "Storytelling for shareholders and capital funding."
+          },
+          "global_chapter_number": 24
+        },
+        {
+          "chapter_number": 7,
+          "title": "Ethical Persuasion",
+          "key_ability": "Integrity at Scale",
+          "work_ready_drill": {
+            "name": "The Value Defense",
+            "description": "Standing firm on company ethics during a hard negotiation."
+          },
+          "global_chapter_number": 25
+        },
+        {
+          "chapter_number": 8,
+          "title": "Workshop Architecture",
+          "key_ability": "Curriculum Design",
+          "work_ready_drill": {
+            "name": "The Training Blueprint",
+            "description": "Designing a 1-day internal skill-transfer session."
+          },
+          "global_chapter_number": 26
+        },
+        {
+          "chapter_number": 9,
+          "title": "Legacy Speaking",
+          "key_ability": "Thought Leadership",
+          "work_ready_drill": {
+            "name": "The \"Big Idea\" Talk",
+            "description": "Crafting a TED-style talk to disrupt your industry."
+          },
+          "global_chapter_number": 27
+        }
+      ]
+    }
+  ],
+  "value_proposition": {
+    "title": "Why Choose The Global Speaker?",
+    "points": [
+      {
+        "name": "Bimodal Focus",
+        "description": "We don't just teach you how to stand at a podium; we teach you how to dominate the Virtual Frame (Webcam/Mic) and the Physical Stage (Full-body)."
+      },
+      {
+        "name": "Zero Jargon",
+        "description": "No \"club-style\" theory. Only direct, actionable skills for busy adults."
+      },
+      {
+        "name": "Scalable Mastery",
+        "description": "A 27-step journey that grows with your career, from your first interview to your first keynote."
+      }
+    ],
+    "closing_tagline": "Be Better. Be Global."
+  }
+}
