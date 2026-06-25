@@ -81,38 +81,39 @@ def prompt_session(level: dict) -> int:
         print(f"Enter a number between 1 and {max_session}.")
 
 
+def iter_phases(template: dict) -> list[dict]:
+    return template["phases"]
+
+
 def build_response_schema(template: dict) -> dict:
     """Build a JSON schema for Gemini structured output from the template seed."""
-    section_properties: dict = {}
-    required_sections: list[str] = []
+    phase_properties: dict = {}
+    required_phases: list[str] = []
 
-    for section in template["sections"]:
-        section_id = section["id"]
-        required_sections.append(section_id)
+    for phase in iter_phases(template):
+        phase_id = phase["id"]
+        required_phases.append(phase_id)
         properties: dict = {"title": {"type": "string"}}
-        section_required: list[str] = ["title"]
+        phase_required: list[str] = ["title"]
 
-        if section.get("guidance"):
+        if phase.get("guidance"):
             properties["guidance"] = {"type": "string"}
-            section_required.append("guidance")
+            phase_required.append("guidance")
 
-        for field in section.get("fields", []):
+        for field in phase.get("fields", []):
             key = field["key"]
-            if key == "key_linguistic_triggers":
-                properties[key] = {
-                    "type": "array",
-                    "items": {"type": "string"},
-                    "minItems": 2,
-                    "maxItems": 3,
-                }
-            else:
-                properties[key] = {"type": "string"}
-            section_required.append(key)
+            properties[key] = {"type": "string"}
+            phase_required.append(key)
 
-        section_properties[section_id] = {
+        for metric in phase.get("success_metrics", []):
+            key = metric["key"]
+            properties[key] = {"type": "string"}
+            phase_required.append(key)
+
+        phase_properties[phase_id] = {
             "type": "object",
             "properties": properties,
-            "required": section_required,
+            "required": phase_required,
         }
 
     return {
@@ -121,6 +122,7 @@ def build_response_schema(template: dict) -> dict:
             "header": {
                 "type": "object",
                 "properties": {
+                    "chapter_number": {"type": "integer"},
                     "chapter_title": {"type": "string"},
                     "level": {"type": "integer"},
                     "focus": {
@@ -128,15 +130,15 @@ def build_response_schema(template: dict) -> dict:
                         "enum": ["Negotiation", "Networking", "Both"],
                     },
                 },
-                "required": ["chapter_title", "level", "focus"],
+                "required": ["chapter_number", "chapter_title", "level", "focus"],
             },
-            "sections": {
+            "phases": {
                 "type": "object",
-                "properties": section_properties,
-                "required": required_sections,
+                "properties": phase_properties,
+                "required": required_phases,
             },
         },
-        "required": ["header", "sections"],
+        "required": ["header", "phases"],
     }
 
 
@@ -148,14 +150,16 @@ def build_system_prompt(persona: dict, template: dict) -> str:
     requirements = "\n".join(f"- {item}" for item in persona["output_requirements"])
     section_outline = []
 
-    for section in template["sections"]:
-        lines = [f"Section {section['id']}: {section['title']}"]
-        if section.get("guidance"):
-            lines.append(f"  Guidance: {section['guidance']}")
-        if section.get("time_allocation"):
-            lines.append(f"  Time allocation: {section['time_allocation']}")
-        for field in section.get("fields", []):
+    for phase in iter_phases(template):
+        lines = [f"Phase {phase['id']}: {phase['title']}"]
+        if phase.get("time_allocation"):
+            lines.append(f"  Time allocation: {phase['time_allocation']}")
+        if phase.get("guidance"):
+            lines.append(f"  Guidance: {phase['guidance']}")
+        for field in phase.get("fields", []):
             lines.append(f"  - {field['label']} ({field['key']})")
+        for metric in phase.get("success_metrics", []):
+            lines.append(f"  - {metric['label']} ({metric['key']})")
         section_outline.append("\n".join(lines))
 
     return f"""You are the {persona['role']}.
@@ -171,16 +175,16 @@ Output requirements:
 {requirements}
 
 Produce a complete session blueprint as JSON with:
-1. "header" — chapter_title, level (integer), focus (Negotiation | Networking | Both)
-2. "sections" — keys I through VIII, each matching this outline:
+1. "header" — chapter_number (integer), chapter_title, level (integer), focus (Negotiation | Networking | Both)
+2. "phases" — keys "1" through "7", each matching this outline:
 
 {chr(10).join(section_outline)}
 
 Rules:
 - Fill every field with specific, operational, workplace-ready content.
 - No placeholder text, bracketed instructions, or generic summaries.
-- Section IV must name and expand the syllabus drill; allocate 80% of session time to the drill.
-- key_linguistic_triggers must be an array of 2-3 exact phrases.
+- Phase 4 must name and expand the syllabus drill; this phase owns 60% of session time.
+- Phase 3 coach_script must be a fully produced example the coach can read aloud.
 - Choose focus (Negotiation / Networking / Both) based on the chapter objectives.
 """
 
@@ -207,7 +211,10 @@ Work-ready drill: {drill['name']}
 Drill description: {drill['description']}
 
 Use the chapter title exactly as given in the header.
+Set header.chapter_number to {chapter['chapter_number']}.
 Set header.level to {level['level']}.
+Set header.chapter_title to "{chapter['title']}".
+Set phase 4 core_drill to "{drill['name']}".
 """
 
 
@@ -216,29 +223,30 @@ def validate_blueprint(blueprint: dict, template: dict) -> list[str]:
 
     if "header" not in blueprint:
         errors.append("Missing 'header'.")
-    if "sections" not in blueprint:
-        errors.append("Missing 'sections'.")
+    if "phases" not in blueprint:
+        errors.append("Missing 'phases'.")
         return errors
 
-    for section in template["sections"]:
-        section_id = section["id"]
-        if section_id not in blueprint["sections"]:
-            errors.append(f"Missing section '{section_id}'.")
+    for phase in iter_phases(template):
+        phase_id = phase["id"]
+        if phase_id not in blueprint["phases"]:
+            errors.append(f"Missing phase '{phase_id}'.")
             continue
 
-        content = blueprint["sections"][section_id]
-        for field in section.get("fields", []):
+        content = blueprint["phases"][phase_id]
+        for field in phase.get("fields", []):
             key = field["key"]
             if key not in content:
-                errors.append(f"Section {section_id} missing field '{key}'.")
-            elif key == "key_linguistic_triggers":
-                value = content[key]
-                if not isinstance(value, list) or not (2 <= len(value) <= 3):
-                    errors.append(
-                        f"Section {section_id}.{key} must be an array of 2-3 strings."
-                    )
+                errors.append(f"Phase {phase_id} missing field '{key}'.")
             elif not str(content[key]).strip():
-                errors.append(f"Section {section_id}.{key} is empty.")
+                errors.append(f"Phase {phase_id}.{key} is empty.")
+
+        for metric in phase.get("success_metrics", []):
+            key = metric["key"]
+            if key not in content:
+                errors.append(f"Phase {phase_id} missing success metric '{key}'.")
+            elif not str(content[key]).strip():
+                errors.append(f"Phase {phase_id}.{key} is empty.")
 
     return errors
 

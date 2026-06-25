@@ -15,9 +15,11 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+import markdown
 
 ROOT = Path(__file__).resolve().parent
 SEED_DIR = ROOT / "seed"
+NOTES_DIR = ROOT / "notes"
 OUTPUT_DIR = ROOT / "output"
 SITE_DIR = ROOT / "site"
 TEMPLATE_DIR = ROOT / "templates"
@@ -26,11 +28,36 @@ ASSETS_DIR = ROOT / "assets"
 TEMPLATE_FILE = SEED_DIR / "strict-master-output-template.json"
 SYLLABUS_FILE = SEED_DIR / "global-speaker-syllabus.json"
 
-SECTION_CSS = {
-    "IV": "drill",
-    "V": "metrics",
-    "VII": "coaching",
+FRAMEWORK_DOCS = [
+    {
+        "slug": "session-framework",
+        "title": "Global Speaker Session Framework",
+        "source": NOTES_DIR / "Global Speaker Session Framework.md",
+        "description": (
+            "How coaches run the 90-minute session: timing, rotation, "
+            "peer feedback, and the Phase 1–7 delivery flow."
+        ),
+    },
+    {
+        "slug": "blueprint-template",
+        "title": "The Unified Global Speaker Blueprint Template",
+        "source": NOTES_DIR / "The Unified Global Speaker Blueprint Template.md",
+        "description": (
+            "The per-chapter blueprint structure: module header and "
+            "Phase 1–7 fields that every generated session must fill."
+        ),
+    },
+]
+
+PHASE_CSS = {
+    "3": "demonstration",
+    "4": "drill",
+    "7": "coaching",
 }
+
+
+def iter_phases(template: dict) -> list[dict]:
+    return template["phases"]
 
 
 def load_json(path: Path) -> dict:
@@ -53,10 +80,13 @@ def session_href_from_root(level: int, chapter_number: int, chapter_title: str) 
 
 def build_field_labels(template: dict) -> dict[str, dict[str, str]]:
     labels: dict[str, dict[str, str]] = {}
-    for section in template["sections"]:
-        labels[section["id"]] = {
-            field["key"]: field["label"] for field in section.get("fields", [])
+    for phase in iter_phases(template):
+        phase_labels = {
+            field["key"]: field["label"] for field in phase.get("fields", [])
         }
+        for metric in phase.get("success_metrics", []):
+            phase_labels[metric["key"]] = metric["label"]
+        labels[phase["id"]] = phase_labels
     return labels
 
 
@@ -74,61 +104,64 @@ def prepare_rendered_sections(
     field_labels: dict[str, dict[str, str]],
 ) -> list[dict]:
     sections: list[dict] = []
-    blueprint_sections = blueprint.get("sections", {})
+    blueprint_phases = blueprint.get("phases", blueprint.get("sections", {}))
 
-    for section_def in template["sections"]:
-        section_id = section_def["id"]
-        content = blueprint_sections.get(section_id, {})
-        title = content.get("title", section_def["title"])
-        guidance = content.get("guidance") or section_def.get("guidance")
-        time_allocation = section_def.get("time_allocation")
+    for phase_def in iter_phases(template):
+        phase_id = phase_def["id"]
+        content = blueprint_phases.get(phase_id, {})
+        title = content.get("title", phase_def["title"])
+        guidance = content.get("guidance") or phase_def.get("guidance")
+        time_allocation = phase_def.get("time_allocation")
 
         entry: dict = {
-            "id": section_id,
+            "id": phase_id,
             "title": title,
             "guidance": guidance,
-            "time_allocation": time_allocation if section_id == "IV" else None,
-            "css_class": SECTION_CSS.get(section_id, "default"),
+            "time_allocation": time_allocation,
+            "css_class": PHASE_CSS.get(phase_id, "default"),
             "fields": [],
             "checklist": [],
+            "field_groups": [],
         }
 
-        if section_id == "I":
-            objective = content.get("guidance", "")
-            if objective:
-                entry["guidance"] = objective
-                entry["fields"] = []
-        elif section_id == "V":
-            labels = field_labels[section_id]
-            for key in ("technical_accuracy", "bimodal_fluency", "executive_presence"):
-                if key in content:
-                    entry["checklist"].append(
-                        {"label": labels[key], "value": content[key]}
-                    )
-            entry["fields"] = []
-        else:
-            labels = field_labels.get(section_id, {})
-            for field_def in section_def.get("fields", []):
-                key = field_def["key"]
-                if key not in content:
-                    continue
-                value = content[key]
-                if key == "key_linguistic_triggers":
-                    entry["fields"].append(
-                        {
-                            "label": labels[key],
-                            "value": value,
-                            "is_list": True,
-                        }
-                    )
-                else:
-                    entry["fields"].append(
-                        {
-                            "label": labels.get(key, field_def["label"]),
-                            "value": value,
-                            "is_list": False,
-                        }
-                    )
+        labels = field_labels.get(phase_id, {})
+        current_group: str | None = None
+        group_fields: list[dict] = []
+
+        for field_def in phase_def.get("fields", []):
+            key = field_def["key"]
+            if key not in content:
+                continue
+            field_entry = {
+                "label": labels.get(key, field_def["label"]),
+                "value": content[key],
+                "is_list": False,
+                "is_blockquote": key == "coach_script",
+            }
+            group_name = field_def.get("group")
+            if group_name:
+                if group_name != current_group:
+                    if group_fields:
+                        entry["field_groups"].append(
+                            {"name": current_group, "fields": group_fields}
+                        )
+                    current_group = group_name
+                    group_fields = []
+                group_fields.append(field_entry)
+            else:
+                entry["fields"].append(field_entry)
+
+        if group_fields and current_group:
+            entry["field_groups"].append(
+                {"name": current_group, "fields": group_fields}
+            )
+
+        for metric in phase_def.get("success_metrics", []):
+            key = metric["key"]
+            if key in content:
+                entry["checklist"].append(
+                    {"label": labels[key], "value": content[key]}
+                )
 
         sections.append(entry)
 
@@ -168,6 +201,68 @@ def make_jinja_env() -> Environment:
     )
 
 
+def layout_context(*, asset_prefix: str) -> dict:
+    return {
+        "asset_prefix": asset_prefix,
+        "home_href": f"{asset_prefix}index.html",
+        "framework_href": f"{asset_prefix}framework/index.html",
+        "show_nav": True,
+    }
+
+
+def markdown_to_html(path: Path) -> str:
+    text = path.read_text(encoding="utf-8")
+    return markdown.markdown(
+        text,
+        extensions=["tables", "fenced_code", "sane_lists"],
+    )
+
+
+def render_framework_pages(env: Environment, site_dir: Path) -> int:
+    framework_dir = site_dir / "framework"
+    framework_dir.mkdir(parents=True, exist_ok=True)
+    asset_prefix = "../"
+    layout = layout_context(asset_prefix=asset_prefix)
+
+    index_pages = []
+    for doc in FRAMEWORK_DOCS:
+        if not doc["source"].exists():
+            raise FileNotFoundError(f"Framework source not found: {doc['source']}")
+
+        html_body = markdown_to_html(doc["source"])
+        page_html = env.get_template("framework_page.html").render(
+            **layout,
+            title=doc["title"],
+            content=html_body,
+            breadcrumbs=[
+                {"label": "Home", "href": f"{asset_prefix}index.html"},
+                {"label": "Framework", "href": f"{asset_prefix}framework/index.html"},
+                {"label": doc["title"], "href": None},
+            ],
+        )
+        out_name = f"{doc['slug']}.html"
+        (framework_dir / out_name).write_text(page_html, encoding="utf-8")
+        index_pages.append(
+            {
+                "title": doc["title"],
+                "description": doc["description"],
+                "href": out_name,
+            }
+        )
+
+    root_layout = layout_context(asset_prefix="../")
+    framework_index = env.get_template("framework_index.html").render(
+        **root_layout,
+        breadcrumbs=[
+            {"label": "Home", "href": "../index.html"},
+            {"label": "Framework", "href": None},
+        ],
+        pages=index_pages,
+    )
+    (framework_dir / "index.html").write_text(framework_index, encoding="utf-8")
+    return len(index_pages)
+
+
 def render_session_page(
     env: Environment,
     data: dict,
@@ -183,8 +278,7 @@ def render_session_page(
     )
 
     return env.get_template("session.html").render(
-        asset_prefix=asset_prefix,
-        home_href=f"{asset_prefix}index.html",
+        **layout_context(asset_prefix=asset_prefix),
         breadcrumbs=[
             {"label": "Home", "href": f"{asset_prefix}index.html"},
             {
@@ -291,8 +385,7 @@ def render_site(
         level_dir.mkdir(parents=True, exist_ok=True)
 
         level_html = env.get_template("level_index.html").render(
-            asset_prefix="../",
-            home_href="../index.html",
+            **layout_context(asset_prefix="../"),
             breadcrumbs=[
                 {"label": "Home", "href": "../index.html"},
                 {"label": f"Level {level['level']}", "href": None},
@@ -332,17 +425,31 @@ def render_site(
                 }
             )
 
+    framework_pages = [
+        {
+            "title": doc["title"],
+            "description": doc["description"],
+            "href": f"framework/{doc['slug']}.html",
+        }
+        for doc in FRAMEWORK_DOCS
+    ]
+
     program_html = env.get_template("program_index.html").render(
-        asset_prefix="",
-        home_href="index.html",
+        **layout_context(asset_prefix=""),
         breadcrumbs=None,
         syllabus=syllabus,
         levels=levels_summary,
         all_sessions=all_sessions,
+        framework_pages=framework_pages,
     )
     (site_dir / "index.html").write_text(program_html, encoding="utf-8")
 
-    print(f"Rendered {rendered_count} session(s) to {site_dir}")
+    framework_count = render_framework_pages(env, site_dir)
+
+    print(
+        f"Rendered {rendered_count} session(s) and "
+        f"{framework_count} framework page(s) to {site_dir}"
+    )
     return 0
 
 

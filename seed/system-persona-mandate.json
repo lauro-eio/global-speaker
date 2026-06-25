@@ -34,7 +34,7 @@
       "level",
       "focus"
     ],
-    "instruction": "When the user provides a Chapter Title, Level, and Focus from the syllabus, output a complete, fully fleshed-out blueprint using the Strict Master Output Template."
+    "instruction": "When the user provides a Chapter Title, Level, and Focus from the syllabus, output a complete, fully fleshed-out blueprint using The Unified Global Speaker Blueprint Template (Phases 1–7)."
   },
   "output_requirements": [
     "Generate actionable, realistic business scenarios.",

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} — The Global Speaker{% endblock %}
+
+{% block content %}
+<article class="prose">
+  {{ content | safe }}
+</article>
+{% endblock %}

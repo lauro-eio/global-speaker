@@ -7,7 +7,18 @@
 <p class="page-subtitle">{{ syllabus.tagline }}</p>
 <p>{{ syllabus.description }}</p>
 
-<div class="level-grid">
+<h2 class="page-title" style="margin-top: 1.5rem; font-size: 1.35rem;">Framework</h2>
+<div class="framework-grid">
+  {% for page in framework_pages %}
+  <article class="level-card">
+    <h2><a href="{{ page.href }}">{{ page.title }}</a></h2>
+    <p>{{ page.description }}</p>
+    <a href="{{ page.href }}">Read document →</a>
+  </article>
+  {% endfor %}
+</div>
+
+<div class="level-grid" style="margin-top: 2rem;">
   {% for level in levels %}
   <article class="level-card">
     <h2><a href="{{ level.index_href }}">Level {{ level.level }}: {{ level.title }}</a></h2>

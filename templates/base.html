@@ -10,6 +10,12 @@
   <header class="site-header">
     <div class="site-header__inner">
       <a href="{{ home_href }}" class="site-header__brand">The Global Speaker</a>
+      {% if show_nav %}
+      <nav class="site-nav" aria-label="Main">
+        <a href="{{ home_href }}">Sessions</a>
+        <a href="{{ framework_href }}">Framework</a>
+      </nav>
+      {% endif %}
     </div>
   </header>
 

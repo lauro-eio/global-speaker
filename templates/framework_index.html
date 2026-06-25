@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Framework — The Global Speaker{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Program Framework</h1>
+<p class="page-subtitle">Reference documents for coaches and content designers.</p>
+
+<div class="framework-grid">
+  {% for page in pages %}
+  <article class="level-card">
+    <h2><a href="{{ page.href }}">{{ page.title }}</a></h2>
+    <p>{{ page.description }}</p>
+    <a href="{{ page.href }}">Read document →</a>
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}

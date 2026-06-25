@@ -26,15 +26,15 @@
 </div>
 
 {% for section in rendered_sections %}
-<section class="blueprint-section blueprint-section--{{ section.css_class }}" id="section-{{ section.id }}">
-  <h2>{{ section.id }}. {{ section.title }}</h2>
-
-  {% if section.guidance %}
-  <p class="section-guidance">{{ section.guidance }}</p>
-  {% endif %}
+<section class="blueprint-section blueprint-section--{{ section.css_class }}" id="phase-{{ section.id }}">
+  <h2>Phase {{ section.id }}: {{ section.title }}</h2>
 
   {% if section.time_allocation %}
   <p class="callout">Time Allocation: {{ section.time_allocation }}</p>
+  {% endif %}
+
+  {% if section.guidance %}
+  <p class="section-guidance">{{ section.guidance }}</p>
   {% endif %}
 
   {% if section.checklist %}
@@ -43,18 +43,16 @@
     <li><strong>{{ item.label }}:</strong> {{ item.value }}</li>
     {% endfor %}
   </ol>
-  {% elif section.fields %}
+  {% endif %}
+
+  {% if section.fields %}
   <div class="field-list">
     {% for field in section.fields %}
     <div class="field">
       <p class="field-label">{{ field.label }}</p>
       <div class="field-value">
-        {% if field.is_list %}
-        <ul>
-          {% for phrase in field.value %}
-          <li>{{ phrase }}</li>
-          {% endfor %}
-        </ul>
+        {% if field.is_blockquote %}
+        <blockquote><p>{{ field.value }}</p></blockquote>
         {% else %}
         <p>{{ field.value }}</p>
         {% endif %}
@@ -63,6 +61,20 @@
     {% endfor %}
   </div>
   {% endif %}
+
+  {% for group in section.field_groups %}
+  <div class="field-group">
+    <h3 class="field-group-title">{{ group.name }}</h3>
+    <div class="field-list">
+      {% for field in group.fields %}
+      <div class="field">
+        <p class="field-label">{{ field.label }}</p>
+        <div class="field-value"><p>{{ field.value }}</p></div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
 </section>
 {% endfor %}
 {% endblock %}
